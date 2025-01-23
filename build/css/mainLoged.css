@@ -1,48 +1,6 @@
-// JOIN MATCH
-color: black;
- font-size: 48px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// VIEW STORE
-color: black;
- font-size: 48px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// ACCOUNT NAME
-color: black;
- font-size: 48px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// LOGOUT
-color: black;
- font-size: 48px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// JOIN MATCH
-color: black;
- font-size: 64px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// VIEW STORE
-color: black;
- font-size: 64px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
----
-// LOGOUT
-color: black;
- font-size: 36px;
- font-family: Inter;
- font-weight: 400;
- word-wrap: break-word
+body
+{
+    background-image: url("../../media/Components/pxsprite-space.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
