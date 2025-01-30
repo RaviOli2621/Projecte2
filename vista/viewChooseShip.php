@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/menus.css">
+    <link rel="stylesheet" href="../css/estilos.css">
     <title>Document</title>
     <style>
         body {
@@ -54,34 +54,39 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="item">
-            <div class="image-container">
-                <p>&lt;</p>
-                <img src="../media/Ovnis/ovniBlue.svg" alt="ovniBlue">
-                <p>&gt;</p>
+    <div class="semiTransparentBig">
+        <div class="container">
+            <div class="itemSemiTransparent">
+                <div class="center">
+                    <p>&lt;</p>
+                    <img src="../media/Ovnis/ovniBlue.svg" alt="ovniBlue">
+                    <p>&gt;</p>
+                </div>
+                <div>
+
+                </div>
             </div>
+            <button>Select</button>
             <div>
-                <button>Select</button>
+                </div>
+            <div class="item">
+                <div class="image-container">
+                    <p>&lt;</p>
+                    <img src="../media/Rockets/rocketBlue.svg" alt="RocketBlue">
+                    <p>&gt;</p>
+                </div>
+                <div>
+                    <button>Selected</button>
+                </div>
             </div>
+            <div class="item">
+                <div class="image-container">
+                    <p>&lt;</p>
+                    <img src="../media/Planes/planeBlue.svg" alt="PlaneBlue">
+                    <p>&gt;</p>
+                </div>
+            <div>
         </div>
-        <div class="item">
-            <div class="image-container">
-                <p>&lt;</p>
-                <img src="../media/Rockets/rocketBlue.svg" alt="RocketBlue">
-                <p>&gt;</p>
-            </div>
-            <div>
-                <button>Selected</button>
-            </div>
-        </div>
-        <div class="item">
-            <div class="image-container">
-                <p>&lt;</p>
-                <img src="../media/Planes/planeBlue.svg" alt="PlaneBlue">
-                <p>&gt;</p>
-            </div>
-            <div>
                 <button>Select</button>
             </div>
         </div>

@@ -59,6 +59,29 @@ body
     align-items: center;
     justify-content: center;
 }
+/*Tienda*/
+.itemSemiTransparent
+{
+    width: 295px;
+    height: 295px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: rgba(106, 17, 203, 0.27);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flechas
+{
+    position: absolute;   
+}
+/*Características sueltas*/
+.center
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 /*Botones*/
 button
 {
