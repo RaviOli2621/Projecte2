@@ -4,53 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/estilos.css">
+	<script defer type="module" src="../src/JavaScript/seleccionNaves.js"></script>
     <title>Document</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            width: 80%;
-            max-width: 1200px;
-        }
-
-        .item {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .image-container {
-            width: 300px;
-            height: 300px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .image-container p {
-            font-size: 24px;
-            margin: 0;
-        }
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
     </style>
 </head>
 <body>
@@ -58,42 +14,46 @@
         <div class="container">
             <div class="itemSemiTransparent">
                 <div class="center">
-                    <p>&lt;</p>
-                    <img src="../media/Ovnis/ovniBlue.svg" alt="ovniBlue">
-                    <p>&gt;</p>
+                    <button class="flechaD">&lt;</button>
+                    <img id="ovniBlue" class="ovni" src="../media/Ovnis/ovniBlue.svg" alt="ovni">
+                    <button class="flechaI">&gt;</button>
                 </div>
                 <div>
 
                 </div>
             </div>
-            <button>Select</button>
-            <div>
-                </div>
-            <div class="item">
-                <div class="image-container">
-                    <p>&lt;</p>
-                    <img src="../media/Rockets/rocketBlue.svg" alt="RocketBlue">
-                    <p>&gt;</p>
+            <div class="itemSemiTransparent">
+                <div class="center">
+                    <button class="flechaD">&lt;</button>
+                    <img id="rocketBlue" class="rocket" src="../media/Rockets/rocketBlue.svg" alt="rocket">
+                    <button class="flechaI">&gt;</button>
                 </div>
                 <div>
-                    <button>Selected</button>
+
                 </div>
             </div>
-            <div class="item">
-                <div class="image-container">
-                    <p>&lt;</p>
-                    <img src="../media/Planes/planeBlue.svg" alt="PlaneBlue">
-                    <p>&gt;</p>
+            <div class="itemSemiTransparent">
+                <div class="center">
+                    <button class="flechaD">&lt;</button>
+                    <img id="planeBlue" class="plane" src="../media/Planes/planeBlue.svg" alt="plane">
+                    <button class="flechaI">&gt;</button>
                 </div>
-            <div>
-        </div>
-                <button>Select</button>
+                <div>
+
+                </div>
             </div>
         </div>
+        <div class="container">
+            <button class="selectSpaceship">Select</button>
+            <button class="selectSpaceship">Select</button>
+            <button class="selectSpaceship">Select</button>
+        </div>
+        <div class="container">
+            <button class="goBack">Go back</button>
+        </div>
+
     </div>
     <br>
-    <div>
-        <button>Go back</button>
-    </div>
+
 </body>
 </html>
