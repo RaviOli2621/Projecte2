@@ -10,7 +10,7 @@ body
 /*Text*/
 .StHt
 {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: var(--font);
     font-size: 64px;
     font-style: normal;
     font-weight: 400;
@@ -70,9 +70,16 @@ body
     align-items: center;
     justify-content: center;
 }
-.flechas
-{
-    position: absolute;   
+.container {
+    display: flex;
+    width: auto;
+    justify-content: space-around;
+    align-items: center;
+}
+img {
+    width: 255px;
+    height: 255px;
+    object-fit: contain;
 }
 /*Características sueltas*/
 .center
@@ -134,7 +141,63 @@ button:active
     font-size: 4rem;
     font-size: 2.25rem;
 }
+.goBack
+{
+    width: 493.103px;
+    height: 123.276px;
+    margin-top: 5rem;
+    position: relative;
+    font-family: var(--font);
+    font-size: 3rem;
+}
 
+.flechaD
+{
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    position: relative;
+    left: 15%;
+    border-width: 5px;
+}
+.flechaI
+{
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    position: relative;
+    right: 15%;
+    border-width: 5px;
+}
+
+.selectSpaceship
+{
+    width: 291.031px;
+    height: 123.276px;
+    flex-shrink: 0;
+
+    color: #000;
+
+    font-family: var(--font);
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.selectSpaceship-selected
+{
+    width: 291.031px;
+    height: 123.276px;
+    flex-shrink: 0;
+
+    color: #000;
+
+    font-family: var(--font);
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
 /*Inputs*/
 
 input
