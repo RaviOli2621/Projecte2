@@ -26,12 +26,11 @@ body
 {
     margin: auto;
     margin-top: 4%;
-
-
+    
     width: 78.063rem;
     height: 50.625rem;
     flex-shrink: 0;
-    background: rgba(0, 0, 0, 0.54);
+    background: rgba(0, 0, 0, 0.54);  
 }
 .semiTransparentMedium
 {
