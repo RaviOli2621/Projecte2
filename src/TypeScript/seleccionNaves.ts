@@ -3,14 +3,15 @@
 
 let derecha = document.getElementsByClassName("flechaD");
 let izquierda = document.getElementsByClassName("flechaI");
+let lock = document.getElementsByClassName("lock");
 
 for (let i = 0; i < derecha.length; i++)
     {
-        derecha[i].addEventListener("click",function(event:Event){mover(event,i,"d")})
-        izquierda[i].addEventListener("click",function(event:Event){mover(event,i,"i")})
+        derecha[i].addEventListener("click",function(event:Event){moverSelNav(event,i,"d")})
+        izquierda[i].addEventListener("click",function(event:Event){moverSelNav(event,i,"i")})
     }
 
-function mover(event: Event,number:number,direction:string)
+function moverSelNav(event: Event,number:number,direction:string)
 {
     let naves = ["ovni","rocket","plane"];
     let colorLista = ["Blue","Colorfull","Green","Purple","Red","Yellow"];
@@ -36,11 +37,22 @@ function mover(event: Event,number:number,direction:string)
             ((posColor-1) < 0)? posColor = colorLista.length-1: posColor--;  
     }
 
+    if(isLocked() == false)
+        {
+            lock[number].setAttribute("hidden","hidden");
+        }else
+        {
+            lock[number].removeAttribute("hidden");
+        }
     foto.id = naves[number]+colorLista[posColor];
     foto.setAttribute("src",foto.getAttribute("src")!.split(naves[number])[0]+naves[number]+colorLista[posColor]+".svg");
-}
 
-function d()
+}
+function isLocked():boolean//Se requiere de sesion para poder hacer esta funcion
+{
+    return false;
+}
+function choose()
 {
 
 }
