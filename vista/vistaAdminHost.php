@@ -11,7 +11,7 @@
 
     <h1>ADMIN PANEL</h1>
 
-    <button id="host" name="host">HOST GAME</button>
+    <button id="host" name="host" onclick="location.href='http://localhost/Projecte/Projecte2/vista/vistaAdminConfigure.php'">HOST GAME</button>
 
     <button id="logout" name="logout">LOGOUT</button>
 
