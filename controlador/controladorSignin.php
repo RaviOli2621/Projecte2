@@ -84,5 +84,10 @@ class ControlSignin {
     }
 }
 
+require_once "../connection/conexio.php";
+global $conexio;
+$init = new ControlSignin($conexio);
+$init->signIn();
+
 
 ?>
