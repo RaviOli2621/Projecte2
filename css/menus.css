@@ -160,6 +160,7 @@ button:active
     position: relative;
     left: 15%;
     border-width: 5px;
+    z-index: +3;
 }
 .flechaI
 {
@@ -169,6 +170,7 @@ button:active
     position: relative;
     right: 15%;
     border-width: 5px;
+    z-index: +3;
 }
 
 .selectSpaceship

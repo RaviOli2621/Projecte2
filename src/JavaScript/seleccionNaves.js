@@ -1,6 +1,7 @@
 "use strict";
 let derecha = document.getElementsByClassName("flechaD");
 let izquierda = document.getElementsByClassName("flechaI");
+let lock = document.getElementsByClassName("lock");
 for (let i = 0; i < derecha.length; i++) {
     derecha[i].addEventListener("click", function (event) { mover(event, i, "d"); });
     izquierda[i].addEventListener("click", function (event) { mover(event, i, "i"); });
@@ -24,9 +25,18 @@ function mover(event, number, direction) {
         default:
             ((posColor - 1) < 0) ? posColor = colorLista.length - 1 : posColor--;
     }
+    if (isLocked() == false) {
+        lock[number].setAttribute("hidden", "hidden");
+    }
+    else {
+        lock[number].removeAttribute("hidden");
+    }
     foto.id = naves[number] + colorLista[posColor];
     foto.setAttribute("src", foto.getAttribute("src").split(naves[number])[0] + naves[number] + colorLista[posColor] + ".svg");
 }
-function d() {
+function isLocked() {
+    return false;
+}
+function choose() {
 }
 //# sourceMappingURL=seleccionNaves.js.map
