@@ -8,8 +8,12 @@
 </head>
 <body>
     <div class="semiTransparentBig">
-        <button class="smallBt">LOGOUT</button>
-        <button class="bigBt">JOIN MATCH</button>
+        <form action="../controlador/logout.php" method="POST">
+            <button type="submit" class="smallBt">LOGOUT</button>
+        </form>
+        <form action="../controlador/controllerLogin.php" method="POST">
+            <button class="bigBt">JOIN MATCH</button>
+        </form>
         <button class="bigBt">VIEW STORE</button>
     </div>
 </body>

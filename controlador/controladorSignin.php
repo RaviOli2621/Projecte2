@@ -1,6 +1,8 @@
 
 <?php
 
+require_once "../model/modelUsuaris.php";
+
 class ControlSignin {
 
     public $conexio;
@@ -55,7 +57,7 @@ class ControlSignin {
 
     }
 
-    public function  signIn() {
+    public function  signIn($conexio) {
 
         if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['password2'])) {
 
@@ -67,15 +69,16 @@ class ControlSignin {
 
                 $admin = 0;
 
-                $gestioUsuaris = new GestioUsuaris(ControlSignin::$conexio);
-                $user = $gestioUsuaris->insertUsuari($username, $password, $admin);
+                $hash_pwd = password_hash($password, PASSWORD_DEFAULT);
+
+                $gestioUsuaris = new GestioUsuaris($conexio);
+                $user = $gestioUsuaris->insertUsuari($username, $hash_pwd, $admin);
 
                 if ($user) {
                     echo "Usuari creat correctament";
                 } else {
                     echo "Error al crear l'usuari";
                 }
-
             } else {
                 echo "Error al crear l'usuari";
             }
@@ -83,6 +86,11 @@ class ControlSignin {
         }
     }
 }
+
+require_once "../connection/conexio.php";
+global $conexio;
+$init = new ControlSignin($conexio);
+$init->signIn($conexio);
 
 
 ?>

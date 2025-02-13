@@ -2,12 +2,12 @@
 
 class ControlLogin {
 
-    public static $connexio;
+    public static $conexio;
 
 
-    public function __construct($connexio) {
+    public function __construct($conexio) {
 
-        ControlLogin::$connexio = $connexio;
+        ControlLogin::$conexio = $conexio;
 
     }
     
@@ -19,6 +19,7 @@ class ControlLogin {
             $username = $_POST['username'];
             $password = $_POST['password'];
             
+            require_once dirname(__DIR__) . '/model/modelUsuaris.php';
             $user = GestioUsuaris::getUsuari($username);
 
             if ($user) {
@@ -36,7 +37,7 @@ class ControlLogin {
                     
                 }
                 
-                header('Location: index.php');
+                header('Location: ../vista/mainLoged.php');
             } else {
                 echo "Usuari o contrasenya incorrectes";
             }
@@ -58,13 +59,11 @@ class ControlLogin {
 
 
     public function checkPassword($user, $password) {
-
-        if ($user['password'] == $password) {
+        if (password_verify($password, $user['password'])) {
             return true;
         } else {
             return false;
         }
-
     }
 
 
@@ -78,5 +77,9 @@ class ControlLogin {
     }
 }
 
+require_once dirname(__DIR__) . '/connection/conexio.php';
+global $conexio;
+$user = new ControlLogin($conexio);
+$user->checkUser();
 
 ?>
