@@ -3,6 +3,7 @@
 <head>
 	<title>WebSocket Echo Client</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/estilos.css">
     <style>
     	.div {overflow-y:auto;margin-bottom:1rem;width:20rem;height:30rem;border:solid black 1px;}
     	textarea {width:20rem;}
@@ -46,15 +47,12 @@
 	<script defer src="../server/Public/serverInteraction.js"></script>
 </head>
 <body onload="init()">
-	<div class="div"></div>
-	<form onsubmit="enviar(event)">
-	</form>
+	<div class="semiTransparentSmall">
+		<h1 class="StHt">STAR HUNTERS</h1>
+	</div>
 	<div class="partida">
 		<div class="jugadores"></div>
 		<div class="estrellas"></div>
-		<!--<div class="DivPlayer" id="player1" style="top:0px; left:0px;">
-			<iframe src="./media/Rockets/rocketBlue.svg" width="30" height="50" class="player" title="SVG"></iframe>
-		</div>-->
 	</div>
 </body>
 </html>

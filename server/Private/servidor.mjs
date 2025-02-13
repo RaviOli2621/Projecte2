@@ -117,7 +117,7 @@ wsServer.on('connection', (client, peticio) => {
 	broadcast(`Nou client afegit: ${id}`, client);
 	let img = "Rockets/rocketColorfull.svg";
 	if(sales[0].players.length > 0) img = "Planes/planeColorfull.svg";
-	sales[0].players.push({id:("player"+peticio.socket.remotePort),img:img,x:1660,y:849.33,rot:0,score: 0,w:tamanoNaves[img.split("/")[0]].w,h:tamanoNaves[img.split("/")[0]].h});
+	sales[0].players.push({id:("player"+peticio.socket.remotePort),nom:"Mondongo",img:img,x:1660,y:849.33,rot:0,score: 0,w:tamanoNaves[img.split("/")[0]].w,h:tamanoNaves[img.split("/")[0]].h});
 	client.send((JSON.stringify({TuId:"player"+peticio.socket.remotePort})));
 	// Al rebre un missatge d'aques client
 	//	reenviar-lo a tothom (inclòs ell mateix)

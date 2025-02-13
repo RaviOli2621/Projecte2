@@ -1,5 +1,5 @@
 <?php
 
-header(header: 'Location: ./Vista/viewLogin.php');
+header(header: 'Location: ./vista/viewLogin.php');
 
 ?>

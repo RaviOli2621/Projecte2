@@ -33,7 +33,7 @@ function init() {
         } catch (error) {
             if(typeof(e.data) == typeof(""))
                 {
-                    let d = document.querySelector('div');
+                    let d = document.querySelector('chat');
                     d.innerHTML += "<p>" + e.data + "</p>";
                     d.scroll(0,d.scrollHeight);
                 } 
@@ -161,6 +161,30 @@ function dibujarNaves(naves)
                     navesDibujadas[i].remove();
                 }
         }
+    actualizarPuntos();
+}
+function actualizarPuntos()
+{
+    let tablero = $(".StHt");
+    let jugador1 = {nom: "",punts: 0},jugador2 = {nom: "",punts: 0},jugador3 = {nom: "",punts: 0};
+    
+    for(let i = 0; i < players.length; i++){
+        let element = players[i]; 
+        if(element.score > jugador1.punts && element.nom != jugador1.nom) 
+            {
+                jugador1 = {nom:element.nom, punts:element.score};
+                i = 0;
+            }else if(element.score > jugador2.punts && element.nom != jugador2.nom)
+            {
+                jugador2 = {nom:element.nom, punts:element.score};
+                i = 0;
+            }else if(element.score > jugador3.punts && element.nom != jugador3.nom) 
+                {
+                    jugador3 = {nom:element.nom, punts:element.score};
+                    i = 0;
+                }
+    }
+    $(tablero).html(jugador1.nom + ": " + jugador1.punts + "\n"+ jugador2.nom + ": " + jugador2.punts + "\n" + jugador3.nom + ": " + jugador3.punts)
 }
 //Estrellas
 let estrellas = [];
