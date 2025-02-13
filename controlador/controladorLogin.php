@@ -37,7 +37,7 @@ class ControlLogin {
                     
                 }
                 
-                header('Location: ../vista/vistaAdminHost.php');
+                header('Location: ../vista/mainLoged.php');
             } else {
                 echo "Usuari o contrasenya incorrectes";
             }
@@ -59,13 +59,11 @@ class ControlLogin {
 
 
     public function checkPassword($user, $password) {
-
-        if ($user['password'] == $password) {
+        if (password_verify($password, $user['password'])) {
             return true;
         } else {
             return false;
         }
-
     }
 
 
