@@ -28,11 +28,11 @@ class ControlLogin {
 
                         $_SESSION['username'] = $username;
                         $_SESSION['admin'] = true;
-
+                        setcookie("user",$username,time()+60*60*24*30,"/");
                     } else {
 
                         $_SESSION['username'] = $username;
-
+                        setcookie("user",$username,time()+60*60*24*30,"/");
                     }
                     
                 }
