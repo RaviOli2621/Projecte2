@@ -12,8 +12,8 @@
             <h1 class="StHt">STAR HUNTERS</h1>
         </div>
         <div class="semiTransparentMedium">
-           <form method="post" action="../controlador/controladorLogin.php" >
-                <input type="text" id="username" name="username" class="loginInp" placeholder="Usernsame">
+           <form method="post" action="../controlador/controladorLogin.php">
+                <input type="text" id="username" name="username" class="loginInp" placeholder="Username">
                 <input type="password" id="password" name="password" class="loginInp" placeholder="Password">
                 <button type="submit" class="smallSubm">Login</button>
             </form>

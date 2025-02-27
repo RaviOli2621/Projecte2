@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header('Location: ../vista/viewLogin.php');
+    exit();
+} else if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
+    header('Location: ../vista/vistaAdminHost.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
