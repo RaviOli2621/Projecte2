@@ -73,10 +73,10 @@ function changePlayersPos(mensaje)
 	rot == 777? rot = sales[0].players[playerIndex].rot: rot;
 	sales[0].players[playerIndex].rot = parseInt(rot);
 	//Limits to the position
-	sales[0].players[playerIndex].x > maxX? sales[0].players[playerIndex].x = maxX: sales[0].players[playerIndex].x < minX? 
-		sales[0].players[playerIndex].x = minX: sales[0].players[playerIndex].x;
-	sales[0].players[playerIndex].y > maxY? sales[0].players[playerIndex].y = maxY: sales[0].players[playerIndex].y < minY? 
-		sales[0].players[playerIndex].y = minY: sales[0].players[playerIndex].y;
+	sales[0].players[playerIndex].x > maxX? sales[0].players[playerIndex].x = maxX-1: sales[0].players[playerIndex].x < minX? 
+		sales[0].players[playerIndex].x = minX+1: sales[0].players[playerIndex].x;
+	sales[0].players[playerIndex].y > maxY? sales[0].players[playerIndex].y = maxY-1: sales[0].players[playerIndex].y < minY? 
+		sales[0].players[playerIndex].y = minY+1: sales[0].players[playerIndex].y;
 	
 	recogerEstrella(playerIndex);
 
@@ -108,7 +108,7 @@ function generarEstrellas()
 {
 	if(sales[0].estrelles.length < maxEstrelles)
 		{
-			sales[0].estrelles.push({id:("estrella"+Date.now()),img:"star.svg",x:getRandomInt(1661),y:getRandomInt(850)});
+			sales[0].estrelles.push({id:("estrella"+Date.now()),img:"star.svg",x:getRandomInt(maxX),y:getRandomInt(maxY)});
 		}
 	/*	wsServer.clients.forEach(function each(client) {
 		if (client.readyState === WebSocket.OPEN) {
