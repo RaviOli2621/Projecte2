@@ -29,7 +29,13 @@ function init() {
                     alert(idJugador);
                 }
             else if((l[0].img == 'star.svg')) estrellas = l;
-            else players = l;
+            else 
+            {
+                players = l;
+                players.sort(function (a, b) {
+                    return b.score - a.score;
+                  });
+            }
         } catch (error) {
             if(typeof(e.data) == typeof(""))
                 {
@@ -166,25 +172,17 @@ function dibujarNaves(naves)
 function actualizarPuntos()
 {
     let tablero = $(".StHt");
-    let jugador1 = {nom: "",punts: 0},jugador2 = {nom: "",punts: 0},jugador3 = {nom: "",punts: 0};
-    
-    for(let i = 0; i < players.length; i++){
-        let element = players[i]; 
-        if(element.score > jugador1.punts && element.nom != jugador1.nom) 
-            {
-                jugador1 = {nom:element.nom, punts:element.score};
-                i = 0;
-            }else if(element.score > jugador2.punts && element.nom != jugador2.nom)
-            {
-                jugador2 = {nom:element.nom, punts:element.score};
-                i = 0;
-            }else if(element.score > jugador3.punts && element.nom != jugador3.nom) 
-                {
-                    jugador3 = {nom:element.nom, punts:element.score};
-                    i = 0;
-                }
-    }
-    $(tablero).html(jugador1.nom + ": " + jugador1.punts + "\n"+ jugador2.nom + ": " + jugador2.punts + "\n" + jugador3.nom + ": " + jugador3.punts)
+    let html = "";
+    let jugadoresP = [];
+    jugadoresP.push({nom: players[0].nom ?? "",punts: players[0].score ?? 0});
+    if(typeof players[1] !== 'undefined') jugadoresP.push({nom: (players[1].nom),punts: (players[1].score)}); else jugadoresP.push({nom: (""),punts: (0)});
+    if(typeof players[2] !== 'undefined') jugadoresP.push({nom: (players[2].nom),punts: (players[2].score)}); else jugadoresP.push({nom: (""),punts: (0)});
+    for(let i = 0; i < players.length && i < 2; i++)
+        {
+            html += jugadoresP[i].nom + ": " + jugadoresP[i].punts + "\n";
+        }
+
+   $(tablero).html(html);
 }
 //Estrellas
 let estrellas = [];
