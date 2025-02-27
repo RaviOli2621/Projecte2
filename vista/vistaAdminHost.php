@@ -12,6 +12,8 @@
         <h1>ADMIN PANEL</h1>
         <button id="start" class="start">START GAME</button>
         <button id="stop" class="stop">STOP GAME</button>
+        Amplada<input type="number" id="amplada" value="500">
+        Alçada<input type="number" id="alcada" value="500">
     </div>
 </body>
 </html>

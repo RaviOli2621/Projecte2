@@ -15,6 +15,13 @@ sales.push(new Partida(0,[],[{id:("estrella"+Date.now()),img:"star.svg",x:getRan
 let tamanoNaves = [];
 tamanoNaves["Rockets"] = {w:30,h:50};
 tamanoNaves["Planes"] = {w:50,h:50};
+let maxX = 1160;
+let maxY = 600;
+let minX = 0;
+let minY = 0;
+let spawnRate = 5000;
+let maxEstrelles = 5+1;
+let estrellaInterval;
 // Enviar missatge a tothom excepte a 'clientExclos'
 //	(si no s'especifica qui és el 'clientExclos', s'envia a tots els clients)
 function broadcast(missatge, clientExclos) {
@@ -24,6 +31,21 @@ function broadcast(missatge, clientExclos) {
 		}
 	});
 }
+
+function encenderServer(mensaje)
+{
+	//maxPunts = mensaje.mxPun;
+	sales[0].estrelles = [{id:("estrella"+Date.now()),img:"star.svg",x:getRandomInt(-1000),y:getRandomInt(-1000)}];
+	
+	maxX = mensaje.amp;
+	maxY = mensaje.alc;
+
+	clearInterval(estrellaInterval);
+	estrellaInterval = setInterval(generarEstrellas,spawnRate);
+
+	sales[0].status = 1;
+}
+
 function actualizarInfo(mensaje,client)
 {
 	client.send((JSON.stringify(sales[mensaje.server].players)));
@@ -45,10 +67,10 @@ function changePlayersPos(mensaje)
 	rot == 777? rot = sales[0].players[playerIndex].rot: rot;
 	sales[0].players[playerIndex].rot = parseInt(rot);
 	//Limits to the position
-	sales[0].players[playerIndex].x > 1660? sales[0].players[playerIndex].x = 1660: sales[0].players[playerIndex].x < 0? 
-		sales[0].players[playerIndex].x = 0: sales[0].players[playerIndex].x;
-	sales[0].players[playerIndex].y > 849.33? sales[0].players[playerIndex].y = 849.33: sales[0].players[playerIndex].y < 0? 
-		sales[0].players[playerIndex].y = 0: sales[0].players[playerIndex].y;
+	sales[0].players[playerIndex].x > maxX? sales[0].players[playerIndex].x = maxX: sales[0].players[playerIndex].x < minX? 
+		sales[0].players[playerIndex].x = minX: sales[0].players[playerIndex].x;
+	sales[0].players[playerIndex].y > maxY? sales[0].players[playerIndex].y = maxY: sales[0].players[playerIndex].y < minY? 
+		sales[0].players[playerIndex].y = minY: sales[0].players[playerIndex].y;
 	
 	recogerEstrella(playerIndex);
 
@@ -78,7 +100,7 @@ function getRandomInt(max) {
 }
 function generarEstrellas()
 {
-	if(sales[0].estrelles.length < 6)
+	if(sales[0].estrelles.length < maxEstrelles)
 		{
 			sales[0].estrelles.push({id:("estrella"+Date.now()),img:"star.svg",x:getRandomInt(1661),y:getRandomInt(850)});
 		}
@@ -106,6 +128,34 @@ function recogerEstrella(index)
 	//let estrella =
 	//console.log(estrella.offsetTop + estrella.offsetHeight)
 }
+function generarAdmin(client,peticio)
+{
+	if(sales[0].admin == 0)
+		{
+			let id = "admin"+peticio.socket.remotePort;
+			sales[0].admin = id;
+			client.send((JSON.stringify({TuId:id})));
+		}else
+		{
+			client.send((JSON.stringify({vesA:"http://localhost/Practiques/Projecte/P2De%20Verda/Projecte2/vista/viewLogin.php"})));
+		}
+}
+
+function generarPlayer(client,peticio)
+{
+	if(sales[0].players.length < 800)
+		{
+			let img = "Rockets/rocketColorfull.svg";
+			if(sales[0].players.length > 0) img = "Planes/planeColorfull.svg";
+			sales[0].players.push({id:("player"+peticio.socket.remotePort),nom:"Mondongo",img:img,x:maxX/2,y:maxY/2,rot:0,score: 0,
+				w:tamanoNaves[img.split("/")[0]].w,h:tamanoNaves[img.split("/")[0]].h});
+			client.send((JSON.stringify({TuId:"player"+peticio.socket.remotePort})));
+		}else
+		{
+			client.send((JSON.stringify({vesA:"http://localhost/Practiques/Projecte/P2De%20Verda/Projecte2/vista/viewLogin.php"})));
+		}
+
+}
 // Al rebre un nou client (nova connexió)
 wsServer.on('connection', (client, peticio) => {
 
@@ -118,10 +168,7 @@ wsServer.on('connection', (client, peticio) => {
 	//	i avisar a tots els altres que s'ha afegit un nou client
 	client.send(`Benvingut <strong>${id}</strong>`);
 	broadcast(`Nou client afegit: ${id}`, client);
-	let img = "Rockets/rocketColorfull.svg";
-	if(sales[0].players.length > 0) img = "Planes/planeColorfull.svg";
-	sales[0].players.push({id:("player"+peticio.socket.remotePort),nom:"Mondongo",img:img,x:1660,y:849.33,rot:0,score: 0,w:tamanoNaves[img.split("/")[0]].w,h:tamanoNaves[img.split("/")[0]].h});
-	client.send((JSON.stringify({TuId:"player"+peticio.socket.remotePort})));
+	
 	// Al rebre un missatge d'aques client
 	//	reenviar-lo a tothom (inclòs ell mateix)
 	client.on('message', missatge => {
@@ -129,12 +176,9 @@ wsServer.on('connection', (client, peticio) => {
 			let js = JSON.parse(`${missatge}`);
 			if(js.action == "mover") changePlayersPos(js);	
 			else if(js.action == "actualizar") actualizarInfo(js, client);
-			else if(js.action == "start") {
-				generarEstrellas();
-				if (!intervalId) {
-					intervalId = setInterval(generarEstrellas, 5000);
-				}
-			}	
+			else if(js.action == "generarNave") generarPlayer(client,peticio);
+			else if(js.action == "generarAdmin") generarAdmin(client,peticio);
+			else if(js.action == "start") encenderServer(js)	
 			else console.log(js);
 		} catch (error) {
 			console.log(error);
@@ -147,8 +191,8 @@ wsServer.on('connection', (client, peticio) => {
 	{
 		console.log("Desconexion de player"+peticio.socket.remotePort );
 		let index = sales[0].players.findIndex(obj => obj.id == ("player"+peticio.socket.remotePort));
-		sales[0].players.splice(index,1);
-		console.log(sales[0].players);
+		if(index != -1)sales[0].players.splice(index,1);
+		else if(sales[0].admin == "admin"+peticio.socket.remotePort)sales[0].admin = 0;
 	});
 });
 

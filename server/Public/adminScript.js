@@ -3,7 +3,7 @@ let stopBtn = document.getElementById('stop');
 let socket = new WebSocket('ws://localhost:8180');
 
 socket.onopen = () => {
-    console.log("Admin conectado")
+    connexio.send(JSON.stringify({action: "generarAdmin"}));
 };
 
 socket.onmessage = function(event) {
@@ -23,7 +23,10 @@ socket.onerror = function(error) {
 };
 
 startBtn.addEventListener('click', () => {
-    socket.send(JSON.stringify({ action: 'start' }));
+    let alcada = document.getElementById("alcada").value;
+    let amplada = document.getElementById("amplada").value;
+    alert(alcada);
+    socket.send(JSON.stringify({ action: 'start' ,amp:amplada,alc:alcada}));
 });
 
 stopBtn.addEventListener('click', () => {

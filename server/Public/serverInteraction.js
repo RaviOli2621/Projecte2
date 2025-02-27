@@ -15,7 +15,8 @@ function init() {
 
     // Quan s'obre la connexió, enviar missatge al servidor
     connexio.onopen = () => {
-        connexio.send("Hola a tothom!");
+        //connexio.send("Hola a tothom!");
+        connexio.send(JSON.stringify({action: "generarNave"}));
     }
 
     // Quan arriba un missatge, mostrar-lo per consola
@@ -32,6 +33,7 @@ function init() {
             else 
             {
                 players = l;
+                console.log(players);
                 players.sort(function (a, b) {
                     return b.score - a.score;
                   });
@@ -39,9 +41,9 @@ function init() {
         } catch (error) {
             if(typeof(e.data) == typeof(""))
                 {
-                    let d = document.querySelector('chat');
-                    d.innerHTML += "<p>" + e.data + "</p>";
-                    d.scroll(0,d.scrollHeight);
+                    //let d = document.querySelector('chat');
+                    //d.innerHTML += "<p>" + e.data + "</p>";
+                    //d.scroll(0,d.scrollHeight);
                 } 
         }
 

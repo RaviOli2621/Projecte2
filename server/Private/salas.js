@@ -4,6 +4,8 @@ export class Partida
     id = "";
     players = [];
     estrelles = [];
+    admin = "";
+    status = 0;
 
     constructor(id,players,estrelles)
     {
@@ -30,5 +32,16 @@ export class Partida
     {
         this.id = p;
         return this.id;
+    }
+    lessPlayersTeam () {
+        let verdes = 0;
+        let rojos = 0;
+        this.players.forEach(element => {
+            
+            if(element.team == "green") verdes++;
+            else rojos ++;
+        });
+        if(verdes < rojos) return 0;
+        else return 1;
     }
 }
