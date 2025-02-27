@@ -72,7 +72,7 @@ function rotacion(velX,velY)
     return rot;
 }
 //Codi estrelles
-setInterval(generarEstrellas,5000);
+let intervalId;
 function getRandomInt(max) {
 	return Math.floor(Math.random() * max);
 }
@@ -82,7 +82,7 @@ function generarEstrellas()
 		{
 			sales[0].estrelles.push({id:("estrella"+Date.now()),img:"star.svg",x:getRandomInt(1661),y:getRandomInt(850)});
 		}
-/*	wsServer.clients.forEach(function each(client) {
+	/*	wsServer.clients.forEach(function each(client) {
 		if (client.readyState === WebSocket.OPEN) {
 			client.send((JSON.stringify(sales[0].estrelles)));
 		}
@@ -108,6 +108,9 @@ function recogerEstrella(index)
 }
 // Al rebre un nou client (nova connexió)
 wsServer.on('connection', (client, peticio) => {
+
+
+	
 	// Guardar identificador (IP i Port) del nou client
 	let id = peticio.socket.remoteAddress + ":" + peticio.socket.remotePort;
 
@@ -124,8 +127,14 @@ wsServer.on('connection', (client, peticio) => {
 	client.on('message', missatge => {
 		try {
 			let js = JSON.parse(`${missatge}`);
-			if(js.action == "mover")changePlayersPos(js);	
-			else if(js.action == "actualizar")actualizarInfo(js,client);	
+			if(js.action == "mover") changePlayersPos(js);	
+			else if(js.action == "actualizar") actualizarInfo(js, client);
+			else if(js.action == "start") {
+				generarEstrellas();
+				if (!intervalId) {
+					intervalId = setInterval(generarEstrellas, 5000);
+				}
+			}	
 			else console.log(js);
 		} catch (error) {
 			console.log(error);

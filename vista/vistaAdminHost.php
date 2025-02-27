@@ -4,17 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/estilos.css">
+    <script src="../server/Public/adminScript.js" defer></script>
     <title>Host Game</title>
 </head>
 <body>
     <div>
-
-    <h1>ADMIN PANEL</h1>
-
-    <button id="host" name="host" onclick="location.href='http://localhost/Projecte/Projecte2/vista/vistaAdminConfigure.php'">HOST GAME</button>
-
-    <button id="logout" name="logout">LOGOUT</button>
-
+        <h1>ADMIN PANEL</h1>
+        <button id="start" class="start">START GAME</button>
+        <button id="stop" class="stop">STOP GAME</button>
     </div>
 </body>
 </html>
