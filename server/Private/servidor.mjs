@@ -15,8 +15,8 @@ sales.push(new Partida(0,[],[{id:("estrella"+Date.now()),img:"star.svg",x:getRan
 let tamanoNaves = [];
 tamanoNaves["Rockets"] = {w:30,h:50};
 tamanoNaves["Planes"] = {w:50,h:50};
-let maxX = 1160;
-let maxY = 600;
+let maxX = 500;
+let maxY = 500;
 let minX = 0;
 let minY = 0;
 let spawnRate = 5000;
@@ -45,6 +45,17 @@ function encenderServer(mensaje)
 
 	sales[0].status = 1;
 }
+function apagarServer()
+{
+	//maxPunts = mensaje.mxPun;
+	sales[0].estrelles = [{id:("estrella"+Date.now()),img:"star.svg",x:getRandomInt(-1000),y:getRandomInt(-1000)}];
+	
+	maxX = mensaje.amp;
+	maxY = mensaje.alc;
+
+
+	sales[0].status = 0;
+}
 
 function actualizarInfo(mensaje,client)
 {
@@ -53,33 +64,32 @@ function actualizarInfo(mensaje,client)
 }
 function changePlayersPos(mensaje)
 {
-	let velX = 0,velY = 0,vel = 4;
-	mensaje.up == true?  velY -= vel: velY;
-	mensaje.dw == true?  velY += vel: velY;
-	mensaje.le == true?  velX -= vel: velX;
-	mensaje.ri == true?  velX += vel: velX;
+	let velX = 0,velY = 0,vel = 4,turbo = 1;
 	let id = mensaje.id;
 	let pArr = sales[0].players;
 	let playerIndex =  pArr.findIndex(obj => obj.id == id);
-	sales[0].players[playerIndex].x += parseInt(velX);
-	sales[0].players[playerIndex].y += parseInt(velY);
-	let rot = rotacion((velX),(velY));
-	rot == 777? rot = sales[0].players[playerIndex].rot: rot;
-	sales[0].players[playerIndex].rot = parseInt(rot);
-	//Limits to the position
-	sales[0].players[playerIndex].x > maxX? sales[0].players[playerIndex].x = maxX-1: sales[0].players[playerIndex].x < minX? 
-		sales[0].players[playerIndex].x = minX+1: sales[0].players[playerIndex].x;
-	sales[0].players[playerIndex].y > maxY? sales[0].players[playerIndex].y = maxY-1: sales[0].players[playerIndex].y < minY? 
-		sales[0].players[playerIndex].y = minY+1: sales[0].players[playerIndex].y;
-	
-	recogerEstrella(playerIndex);
-
-	//Enviar les dades
-	/*wsServer.clients.forEach(function each(client) {
-		if (client.readyState === WebSocket.OPEN) {
-			client.send((JSON.stringify(sales[0].players)));
+	if(playerIndex > -1)
+		{
+			console.log(sales[0].turbos[playerIndex]);
+			if(sales[0].turbos[playerIndex] != 0) turbo = 1.5;
+			mensaje.up == true?  velY -= vel*turbo: velY;
+			mensaje.dw == true?  velY += vel*turbo: velY;
+			mensaje.le == true?  velX -= vel*turbo: velX;
+			mensaje.ri == true?  velX += vel*turbo: velX;
+			sales[0].players[playerIndex].x += parseInt(velX);
+			sales[0].players[playerIndex].y += parseInt(velY);
+			let rot = rotacion((velX),(velY));
+			rot == 777? rot = sales[0].players[playerIndex].rot: rot;
+			sales[0].players[playerIndex].rot = parseInt(rot);
+			//Limits to the position
+			sales[0].players[playerIndex].x + sales[0].players[playerIndex].w > maxX? sales[0].players[playerIndex].x = maxX-1-sales[0].players[playerIndex].w: sales[0].players[playerIndex].x < minX? 
+				sales[0].players[playerIndex].x = minX+1: sales[0].players[playerIndex].x;
+			sales[0].players[playerIndex].y + sales[0].players[playerIndex].h > maxY? sales[0].players[playerIndex].y = maxY-1-sales[0].players[playerIndex].h: sales[0].players[playerIndex].y < minY? 
+				sales[0].players[playerIndex].y = minY+1: sales[0].players[playerIndex].y;
+			
+			recogerEstrella(playerIndex);
 		}
-	});*/
+
 }
 function rotacion(velX,velY)
 {
@@ -120,13 +130,22 @@ function recogerEstrella(index)
 		//Calcular posiciones
 		element.x <= (sales[0].players[index].x + sales[0].players[index].w)? (sales[0].players[index].x <= (element.x + 20)? xTrue = true: xTrue = false): xTrue = false;
 		element.y <= (sales[0].players[index].y + sales[0].players[index].h)? (sales[0].players[index].y <= (element.y + 20)? yTrue = true: yTrue = false): yTrue = false;
-		//Eliminar estrella al contacto
-		(xTrue == true && yTrue == true)? sales[0].estrelles.splice(i,1): xTrue;
-		// Debugar el recoger estrella
-		(xTrue == true && yTrue == true)? sales[0].players[index].score++: xTrue;
+		//Acciones al recoger una estrella
+		if(xTrue == true && yTrue == true)
+			{
+				sales[0].estrelles.splice(i,1);
+				sales[0].players[index].score++;
+				clearTimeout(sales[0].turbos[index]);
+				let temporal = setTimeout(function(){reiniciarTurbo(index)},3000);
+				sales[0].turbos[index] = temporal;				
+			} 
 	}
 	//let estrella =
 	//console.log(estrella.offsetTop + estrella.offsetHeight)
+}
+function reiniciarTurbo(index)
+{
+	sales[0].turbos[index] = 0;
 }
 function generarAdmin(client,peticio)
 {
@@ -149,6 +168,7 @@ function generarPlayer(client,peticio)
 			if(sales[0].players.length > 0) img = "Planes/planeColorfull.svg";
 			sales[0].players.push({id:("player"+peticio.socket.remotePort),nom:"Mondongo",img:img,x:maxX/2,y:maxY/2,rot:0,score: 0,
 				w:tamanoNaves[img.split("/")[0]].w,h:tamanoNaves[img.split("/")[0]].h});
+			sales[0].turbos.push(0);
 			client.send((JSON.stringify({TuId:"player"+peticio.socket.remotePort})));
 		}else
 		{
@@ -178,7 +198,8 @@ wsServer.on('connection', (client, peticio) => {
 			else if(js.action == "actualizar") actualizarInfo(js, client);
 			else if(js.action == "generarNave") generarPlayer(client,peticio);
 			else if(js.action == "generarAdmin") generarAdmin(client,peticio);
-			else if(js.action == "start") encenderServer(js)	
+			else if(js.action == "start") encenderServer(js);	
+			else if(js.action == "stop") apagarServer();	
 			else console.log(js);
 		} catch (error) {
 			console.log(error);

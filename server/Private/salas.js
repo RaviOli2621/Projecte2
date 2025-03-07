@@ -6,6 +6,7 @@ export class Partida
     estrelles = [];
     admin = "";
     status = 0;
+    turbos = [];
 
     constructor(id,players,estrelles)
     {
