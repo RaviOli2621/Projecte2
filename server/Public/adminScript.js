@@ -25,17 +25,16 @@ socket.onerror = function(error) {
 startBtn.addEventListener('click', () => {
     let alcada = document.getElementById("alcada").value;
     let amplada = document.getElementById("amplada").value;
-    alert(alcada);
     socket.send(JSON.stringify({ action: 'start' ,amp:amplada,alc:alcada}));
 });
 
-amplada.addEventListener('change', () => {
-    socket.send(JSON.stringify({ action: 'config', amp: amplada.value, alc: alcada.value }));
-});
-
-alcada.addEventListener('change', () => {
-    socket.send(JSON.stringify({ action: 'config', alc: alcada.value, amp: amplada.value }));
-});
+//amplada.addEventListener('change', () => {
+//    socket.send(JSON.stringify({ action: 'config', amp: amplada.value, alc: alcada.value }));
+//});
+//
+//alcada.addEventListener('change', () => {
+//    socket.send(JSON.stringify({ action: 'config', alc: alcada.value, amp: amplada.value }));
+//});
 
 stopBtn.addEventListener('click', () => {
     socket.send(JSON.stringify({ action: 'stop' }));

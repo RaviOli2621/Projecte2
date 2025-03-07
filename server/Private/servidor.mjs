@@ -169,11 +169,10 @@ function generarAdmin(client,peticio)
 
 function generarPlayer(client,peticio)
 {
-	if(sales[0].players.length < 800)
+	if(sales[0].players.length < 10)
 		{
 			let img = "Rockets/rocketColorfull.svg";
-			if(sales[0].players.length > 0) img = "Planes/planeColorfull.svg";
-			sales[0].players.push({id:("player"+peticio.socket.remotePort),nom:"Mondongo",img:img,x:maxX/2,y:maxY/2,rot:0,score: 0,
+			sales[0].players.push({id:("player"+peticio.socket.remotePort),nom:("Player"+sales[0].players.length),img:img,x:maxX/2,y:maxY/2,rot:0,score: 0,
 				w:tamanoNaves[img.split("/")[0]].w,h:tamanoNaves[img.split("/")[0]].h});
 			sales[0].turbos.push(0);
 			client.send((JSON.stringify({TuId:"player"+peticio.socket.remotePort})));

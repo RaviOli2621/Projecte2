@@ -156,10 +156,12 @@ function dibujarNaves(naves)
     naves.forEach(element => {
         let id = "#"+element.id;
         let div = $(id);
+        let imagen = element.img
+        if(element.id != idJugador) imagen = "Rockets/rocketYellow.svg"
         if($(div).length == 0)
             {
                 div = $('<div class="DivPlayer" id="'+element.id+'" style="top:'+element.x+'px; left:'+element.y+'px; transform: rotate('+element.rot+'deg);">'+
-                    '<iframe src="./media/'+element.img+'" width="'+element.w+'" height="'+element.h+'" class="player" title="SVG"></iframe></div>');
+                    '<iframe src="./media/'+imagen+'" width="'+element.w+'" height="'+element.h+'" class="player" title="SVG"></iframe></div>');
                 $(partida).append(div);
             }
         $(div).css({top: element.y+"px", left: element.x+"px",transform: 'rotate('+element.rot+'deg)'})  
@@ -178,16 +180,19 @@ function dibujarNaves(naves)
 }
 function actualizarPuntos()
 {
+    let index = players.findIndex(obj => obj.id == idJugador) ?? null; 
     let tablero = $(".StHt");
     let html = "";
     let jugadoresP = [];
     jugadoresP.push({nom: players[0].nom ?? "",punts: players[0].score ?? 0});
     if(typeof players[1] !== 'undefined') jugadoresP.push({nom: (players[1].nom),punts: (players[1].score)}); else jugadoresP.push({nom: (""),punts: (0)});
     if(typeof players[2] !== 'undefined') jugadoresP.push({nom: (players[2].nom),punts: (players[2].score)}); else jugadoresP.push({nom: (""),punts: (0)});
-    for(let i = 0; i < players.length && i < 2; i++)
+    jugadoresP.push({nom: (players[index].nom),punts: (players[index].score)});
+    for(let i = 0; i < players.length && i <= 2; i++)
         {
             html += jugadoresP[i].nom + ": " + jugadoresP[i].punts + "\n";
         }
+        html += jugadoresP[jugadoresP.length-1].nom + ": " + jugadoresP[jugadoresP.length-1].punts + "\n";
 
    $(tablero).html(html);
 }
