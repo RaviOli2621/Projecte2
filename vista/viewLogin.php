@@ -16,6 +16,8 @@
                 <input type="text" id="username" name="username" class="loginInp" placeholder="Username">
                 <input type="password" id="password" name="password" class="loginInp" placeholder="Password">
                 <button type="submit" class="smallSubm">Login</button>
+                <br>
+                <a href="vistaSignIn.php">Registrarse</a>
             </form>
         </div>
     </div>

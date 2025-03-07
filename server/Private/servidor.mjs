@@ -32,6 +32,12 @@ function broadcast(missatge, clientExclos) {
 	});
 }
 
+function asignarCampoDeJuwgo(mensaje)
+{
+	maxX = mensaje.amp;
+	maxY = mensaje.alc;
+}
+
 function encenderServer(mensaje)
 {
 	//maxPunts = mensaje.mxPun;
@@ -199,7 +205,8 @@ wsServer.on('connection', (client, peticio) => {
 			else if(js.action == "generarNave") generarPlayer(client,peticio);
 			else if(js.action == "generarAdmin") generarAdmin(client,peticio);
 			else if(js.action == "start") encenderServer(js);	
-			else if(js.action == "stop") apagarServer();	
+			else if(js.action == "stop") apagarServer();
+			else if(js.action == "config") asignarCampoDeJuwgo(js);
 			else console.log(js);
 		} catch (error) {
 			console.log(error);

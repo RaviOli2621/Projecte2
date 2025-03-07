@@ -1,5 +1,7 @@
 let startBtn = document.getElementById('start');
 let stopBtn = document.getElementById('stop');
+let amplada = document.getElementById('amplada');
+let alcada = document.getElementById('alcada');
 let socket = new WebSocket('ws://localhost:8180');
 
 socket.onopen = () => {
@@ -11,11 +13,9 @@ socket.onmessage = function(event) {
 };
 
 socket.onclose = function(event) {
-    if (event.wasClean) {
-        console.log(`Closed cleanly, code=${event.code} reason=${event.reason}`);
-    } else {
-        console.error('Connection died');
-    }
+    
+     console.error('Connection died');
+    
 };
 
 socket.onerror = function(error) {
@@ -27,6 +27,14 @@ startBtn.addEventListener('click', () => {
     let amplada = document.getElementById("amplada").value;
     alert(alcada);
     socket.send(JSON.stringify({ action: 'start' ,amp:amplada,alc:alcada}));
+});
+
+amplada.addEventListener('change', () => {
+    socket.send(JSON.stringify({ action: 'config', amp: amplada.value, alc: alcada.value }));
+});
+
+alcada.addEventListener('change', () => {
+    socket.send(JSON.stringify({ action: 'config', alc: alcada.value, amp: amplada.value }));
 });
 
 stopBtn.addEventListener('click', () => {
