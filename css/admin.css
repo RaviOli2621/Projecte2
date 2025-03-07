@@ -7,6 +7,10 @@ body {
     align-items : center;
 }
 
+strong,h1
+{
+    color: aliceblue;
+}
 
 .startBt
 {

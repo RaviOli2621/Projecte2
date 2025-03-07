@@ -30,10 +30,16 @@ function init() {
                     alert(idJugador);
                 }
             else if((l[0].img == 'star.svg')) estrellas = l;
+            else if((l[0].MapaX > 0)) 
+                {
+                    console.log(l[0].MapaX);
+                    $("#partida").css("width",l[0].MapaX);
+                    $("#partida").css("height",l[0].MapaY);
+                }
             else 
             {
                 players = l;
-                console.log(players);
+                //console.log(players);
                 players.sort(function (a, b) {
                     return b.score - a.score;
                   });
@@ -156,7 +162,6 @@ function dibujarNaves(naves)
                     '<iframe src="./media/'+element.img+'" width="'+element.w+'" height="'+element.h+'" class="player" title="SVG"></iframe></div>');
                 $(partida).append(div);
             }
-            console.log(element.rot);
         $(div).css({top: element.y+"px", left: element.x+"px",transform: 'rotate('+element.rot+'deg)'})  
     });
     let navesDibujadas = $(partida).find(".DivPlayer");
@@ -201,7 +206,6 @@ function dibujarEstrellas(estrellas)
                     '<iframe src="./media/Components/'+element.img+'" width="20" height="20" class="estrella" title="SVG"></iframe></div>');
                 $(partida).append(div);
             }
-            console.log(element.rot);
         $(div).css({top: element.y+"px", left: element.x+"px",transform: 'rotate('+element.rot+'deg)'})  
     });
     let navesDibujadas = $(partida).find(".DivEstrella");

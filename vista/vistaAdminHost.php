@@ -22,8 +22,8 @@ if (!isset($_SESSION['username'])) {
         <h1>ADMIN PANEL</h1>
         <button id="start" class="start">START GAME</button>
         <button id="stop" class="stop">STOP GAME</button>
-        Amplada<input type="number" id="amplada" value="500">
-        Alçada<input type="number" id="alcada" value="500">
+        <strong>Amplada</strong><input type="number" id="amplada" min="100" max="1600" value="500">
+        <strong>Alçada</strong><input type="number" id="alcada" min="100" max="800" value="500">
         <form action="../controlador/logout.php" method="POST">
             <button type="submit" class="smallBt">LOGOUT</button>
         </form>
