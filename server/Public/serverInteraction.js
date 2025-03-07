@@ -188,32 +188,28 @@ function actualizarPuntos()
 }
 //Estrellas
 let estrellas = [];
-function dibujarEstrellas(estrellas)
-{
+function dibujarEstrellas(estrellas) {
     let partida = $(".estrellas");
 
     estrellas.forEach(element => {
         let id = "#"+element.id;
         let div = $(id);
-        if($(div).length == 0)
-            {
-                div = $('<div class="DivEstrella" id="'+element.id+'" style="top:'+element.x+'px; left:'+element.y+'px;">'+
-                    '<iframe src="./media/Components/'+element.img+'" width="20" height="20" class="estrella" title="SVG"></iframe></div>');
-                $(partida).append(div);
-            }
-            console.log(element.rot);
-        $(div).css({top: element.y+"px", left: element.x+"px",transform: 'rotate('+element.rot+'deg)'})  
-    });
-    let navesDibujadas = $(partida).find(".DivEstrella");
-    for(let i = 0; i < $(navesDibujadas).length; i++)
-        {
-            let id = ($(navesDibujadas[i]).prop("id"));
-            let index = estrellas.findIndex(obj => obj.id == id) ?? null; 
-            if(index == -1)
-                {
-                    navesDibujadas[i].remove();
-                }
+        if($(div).length == 0) {
+            div = $('<div class="DivEstrella" id="'+element.id+'" style="top:'+element.x+'px; left:'+element.y+'px;">'+
+                '<iframe src="./media/Components/'+element.img+'" width="20" height="20" class="estrella" title="SVG"></iframe></div>');
+            $(partida).append(div);
         }
+        $(div).css({top: element.y+"px", left: element.x+"px"});
+    });
+
+    let estrellasDibujadas = $(partida).find(".DivEstrella");
+    for(let i = 0; i < $(estrellasDibujadas).length; i++) {
+        let id = ($(estrellasDibujadas[i]).prop("id"));
+        let index = estrellas.findIndex(obj => obj.id == id);
+        if(index == -1) {
+            $(estrellasDibujadas[i]).remove();
+        }
+    }
 }
 // Enviar missatge
 
