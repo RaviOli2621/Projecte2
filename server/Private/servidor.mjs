@@ -32,10 +32,10 @@ function broadcast(missatge, clientExclos) {
 	});
 }
 
-function asignarCampoDeJuwgo(mensaje)
+function asignarCampoDeJuego(mensaje)
 {
-	maxX = mensaje.amp;
-	maxY = mensaje.alc;
+	if(mensaje.amp >= 100 && mensaje.amp <= 1600)maxX = mensaje.amp;
+	if(mensaje.alc >= 100 && mensaje.alc <=800)maxY = mensaje.alc;
 }
 
 function encenderServer(mensaje)
@@ -75,6 +75,7 @@ function actualizarInfo(mensaje,client)
 {
 	client.send((JSON.stringify(sales[mensaje.server].players)));
 	client.send((JSON.stringify(sales[mensaje.server].estrelles)));
+	client.send((JSON.stringify([{MapaX:maxX,MapaY:maxY}])));
 }
 function changePlayersPos(mensaje)
 {
@@ -209,7 +210,7 @@ wsServer.on('connection', (client, peticio) => {
 			else if(js.action == "generarAdmin") generarAdmin(client,peticio);
 			else if(js.action == "start") encenderServer(js);	
 			else if(js.action == "stop") apagarServer();
-			else if(js.action == "config") asignarCampoDeJuwgo(js);
+			else if(js.action == "config") asignarCampoDeJuego(js);
 			else console.log(js);
 		} catch (error) {
 			console.log(error);
