@@ -53,14 +53,22 @@ function encenderServer(mensaje)
 }
 function apagarServer()
 {
-	//maxPunts = mensaje.mxPun;
-	sales[0].estrelles = [{id:("estrella"+Date.now()),img:"star.svg",x:getRandomInt(-1000),y:getRandomInt(-1000)}];
-	
-	maxX = mensaje.amp;
-	maxY = mensaje.alc;
 
+	sales[0].estrelles = [{id:("estrella"+Date.now()),img:"star.svg",x:getRandomInt(-1000),y:getRandomInt(-1000)}];
+	// Detener la generación de estrellas
+	clearInterval(estrellaInterval);
+
+	// Poner el contador de todos los jugadores a 90
+	sales[0].players.forEach(player => {
+		player.contador = 0;
+	});
+
+	// Vaciar la lista de estrellas
+	sales[0].estrelles = [];
 
 	sales[0].status = 0;
+
+	broadcast(JSON.stringify(sales[0].estrelles));
 }
 
 function actualizarInfo(mensaje,client)
@@ -115,41 +123,36 @@ let intervalId;
 function getRandomInt(max) {
 	return Math.floor(Math.random() * max);
 }
-function generarEstrellas()
-{
-	if(sales[0].estrelles.length < maxEstrelles)
-		{
-			sales[0].estrelles.push({id:("estrella"+Date.now()),img:"star.svg",x:getRandomInt(maxX),y:getRandomInt(maxY)});
-		}
-	/*	wsServer.clients.forEach(function each(client) {
-		if (client.readyState === WebSocket.OPEN) {
-			client.send((JSON.stringify(sales[0].estrelles)));
-		}
-	});*/
+
+function generarEstrellas() {
+    if (sales[0].estrelles.length < maxEstrelles) {
+        sales[0].estrelles.push({id:("estrella"+Date.now()),img:"star.svg",x:getRandomInt(maxX),y:getRandomInt(maxY)});
+    }
+    // Hacer broadcast de las estrellas actualizadas
+    broadcast(JSON.stringify(sales[0].estrelles));
 }
-function recogerEstrella(index)
-{
-	for(let i = 0; i < sales[0].estrelles.length; i++)
-	{
-		let element = sales[0].estrelles[i];
-		let xTrue = false;
-		let yTrue = false;
-		//Calcular posiciones
-		element.x <= (sales[0].players[index].x + sales[0].players[index].w)? (sales[0].players[index].x <= (element.x + 20)? xTrue = true: xTrue = false): xTrue = false;
-		element.y <= (sales[0].players[index].y + sales[0].players[index].h)? (sales[0].players[index].y <= (element.y + 20)? yTrue = true: yTrue = false): yTrue = false;
-		//Acciones al recoger una estrella
-		if(xTrue == true && yTrue == true)
-			{
-				sales[0].estrelles.splice(i,1);
-				sales[0].players[index].score++;
-				clearTimeout(sales[0].turbos[index]);
-				let temporal = setTimeout(function(){reiniciarTurbo(index)},3000);
-				sales[0].turbos[index] = temporal;				
-			} 
-	}
-	//let estrella =
-	//console.log(estrella.offsetTop + estrella.offsetHeight)
+
+function recogerEstrella(index) {
+    for (let i = 0; i < sales[0].estrelles.length; i++) {
+        let element = sales[0].estrelles[i];
+        let xTrue = false;
+        let yTrue = false;
+        // Calcular posiciones
+        element.x <= (sales[0].players[index].x + sales[0].players[index].w) ? (sales[0].players[index].x <= (element.x + 20) ? xTrue = true : xTrue = false) : xTrue = false;
+        element.y <= (sales[0].players[index].y + sales[0].players[index].h) ? (sales[0].players[index].y <= (element.y + 20) ? yTrue = true : yTrue = false) : yTrue = false;
+        // Acciones al recoger una estrella
+        if (xTrue == true && yTrue == true) {
+            sales[0].estrelles.splice(i, 1);
+            sales[0].players[index].score++;
+            clearTimeout(sales[0].turbos[index]);
+            let temporal = setTimeout(function() { reiniciarTurbo(index) }, 3000);
+            sales[0].turbos[index] = temporal;
+            // Hacer broadcast de las estrellas actualizadas
+            broadcast(JSON.stringify(sales[0].estrelles));
+        }
+    }
 }
+
 function reiniciarTurbo(index)
 {
 	sales[0].turbos[index] = 0;
