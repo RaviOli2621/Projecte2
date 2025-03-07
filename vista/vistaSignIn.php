@@ -16,8 +16,11 @@
                 <input type="text" id="username" name="username" class="loginInp" placeholder="Usernsame">
                 <input type="password" id="password" name="password" class="loginInp" placeholder="Password">
                 <input type="password" id="password2" name="password2" class="loginInp" placeholder="Repeat Password">
-                <button type="submit" class="smallSubm">Login</button>
+                <button type="submit" class="smallSubm">Sign In</button>
+                <br>
+                <a href="viewLogin.php">Anar a Login</a>
             </form>
+            
         </div>
     </div>
 </body>
