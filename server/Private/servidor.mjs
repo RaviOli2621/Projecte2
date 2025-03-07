@@ -53,22 +53,22 @@ function encenderServer(mensaje)
 }
 function apagarServer()
 {
+
+	sales[0].estrelles = [{id:("estrella"+Date.now()),img:"star.svg",x:getRandomInt(-1000),y:getRandomInt(-1000)}];
 	// Detener la generación de estrellas
 	clearInterval(estrellaInterval);
 
 	// Poner el contador de todos los jugadores a 90
 	sales[0].players.forEach(player => {
-		player.contador = 90;
+		player.contador = 0;
 	});
 
 	// Vaciar la lista de estrellas
 	sales[0].estrelles = [];
 
-	// Hacer broadcast de la lista vacía de estrellas
-	broadcast(JSON.stringify(sales[0].estrelles));
-
-	// Actualizar el estado del juego
 	sales[0].status = 0;
+
+	broadcast(JSON.stringify(sales[0].estrelles));
 }
 
 function actualizarInfo(mensaje,client)
