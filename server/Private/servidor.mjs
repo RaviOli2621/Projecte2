@@ -58,13 +58,12 @@ function apagarServer()
 	// Detener la generación de estrellas
 	clearInterval(estrellaInterval);
 
-	// Poner el contador de todos los jugadores a 90
+	// Poner el score de todos los jugadores a 0
 	sales[0].players.forEach(player => {
-		player.contador = 0;
+		player.score = 0;
 	});
 
 	// Vaciar la lista de estrellas
-	sales[0].estrelles = [];
 
 	sales[0].status = 0;
 

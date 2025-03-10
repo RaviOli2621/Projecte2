@@ -25,6 +25,7 @@ socket.onerror = function(error) {
 startBtn.addEventListener('click', () => {
     let alcada = document.getElementById("alcada").value;
     let amplada = document.getElementById("amplada").value;
+    alert("Partida comenzada");
     socket.send(JSON.stringify({ action: 'start' ,amp:amplada,alc:alcada}));
 });
 
@@ -37,5 +38,6 @@ startBtn.addEventListener('click', () => {
 //});
 
 stopBtn.addEventListener('click', () => {
+    alert("Partida parada");
     socket.send(JSON.stringify({ action: 'stop' }));
 });
